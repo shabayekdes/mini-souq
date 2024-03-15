@@ -3,7 +3,8 @@ staticfiles-cdn/
 .DS_Store
 bin/
 Scripts/
-.idea/
+media/
+staticfiles/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -26,7 +27,6 @@ lib64/
 parts/
 sdist/
 var/
-images/
 wheels/
 pip-wheel-metadata/
 share/python-wheels/
