@@ -1,0 +1,53 @@
+
+{% for product in products %}
+  <div class="product">
+    <div class="product-image">
+      <a href="#"
+        ><img src="{{ product.image.url }}" alt="Round Neck T-shirts"
+      /></a>
+      <div class="sale-flash badge bg-danger p-2">
+        {% if product.is_sale %}Sale!{% endif %}
+      </div>
+      <div class="bg-overlay">
+        <div
+          class="bg-overlay-content align-items-end justify-content-between"
+          data-hover-animate="fadeIn"
+          data-hover-speed="400"
+        >
+          <a href="#" class="btn btn-dark me-2" title="Add to Cart"
+            ><i class="bi-bag-plus"></i
+          ></a>
+          <a
+            href="demos/shop/ajax/shop-item.html"
+            class="btn btn-dark"
+            data-lightbox="ajax"
+            ><i class="bi-eye"></i
+          ></a>
+        </div>
+        <div class="bg-overlay-bg bg-transparent"></div>
+      </div>
+    </div>
+    <div class="product-desc">
+      <div class="product-title mb-1">
+        <h3>
+          <a href="#">{{ product.name }}</a>
+        </h3>
+      </div>
+      <div class="product-price font-primary">
+        {% if product.is_sale %}
+        <del class="me-1">${{ product.price }}</del>
+        <ins>${{ product.sale_price }}</ins>
+        {% else %}
+        <ins>${{ product.price }}</ins>
+        {% endif %}
+      </div>
+      <!-- <div class="product-rating">
+                    <i class="bi-star-fill"></i>
+                    <i class="bi-star-fill"></i>
+                    <i class="bi-star-fill"></i>
+                    <i class="bi-star-half"></i>
+                    <i class="bi-star"></i>
+                </div> -->
+    </div>
+  </div>
+{% endfor %}
