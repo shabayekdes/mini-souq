@@ -4,3 +4,4 @@ python-decouple
 pillow
 psycopg[binary]
 dj-database-url
+whitenoise
