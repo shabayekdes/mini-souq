@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load allauth_ui %}
+{% load widget_tweaks %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'allauth_ui/output.css' %}" />
+{% endblock %}
+
+{% block content %}
+		<!-- Page Title
+		============================================= -->
+		<section class="page-title bg-transparent">
+			<div class="container">
+				<div class="page-title-row">
+
+					<div class="page-title-content">
+						<h1>My Account</h1>
+					</div>
+
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="#">Home</a></li>
+							<li class="breadcrumb-item"><a href="#">Templates</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Login &amp; Register 3</li>
+						</ol>
+					</nav>
+
+				</div>
+			</div>
+		</section><!-- .page-title end -->
+
+		<!-- Content
+		============================================= -->
+		<section id="content">
+			<div class="content-wrap">
+				<div class="container">
+
+					<div class="accordion accordion-lg mx-auto mb-0" style="max-width: 550px;">
+                        {% trans "Sign In" as heading %}
+                        {% if not SOCIALACCOUNT_ONLY %}
+                            <div class="py-3">
+                                {% blocktranslate %}If you have not created an account yet, then please
+                                <a class="link" href="{{ signup_url }}">sign up</a> first.{% endblocktranslate %}
+                            </div>
+                            {% url 'account_login' as login_url %}
+                            {% #form form=form url=url button_text=heading %}
+                            <div class="items-start my-2 form-control">
+                                <label class="cursor-pointer label">
+                                    {% render_field form.remember class="checkbox checkbox-accent" %}
+                                    <span class="ml-2 label-text">Remember me</span>
+                                </label>
+                            </div>
+                            {{ redirect_field }}
+                            {% csrf_token %}
+                            <div class="flex flex-col">
+                                <a class="link self-end text-sm"
+                                   href="{% url "account_reset_password" %}">Forgot password?</a>
+                            </div>
+                            {% /form %}
+                        {% endif %}
+                        {% if LOGIN_BY_CODE_ENABLED %}
+                            <div class="divider divider-neutral"></div>
+                            <a href="{{ request_login_code_url }}" class="btn btn-neutral">{% trans "Mail me a sign-in code" %}</a>
+                        {% endif %}
+                        {% if SOCIALACCOUNT_ENABLED %}
+                            {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+                        {% endif %}
+					</div>
+
+				</div>
+			</div>
+		</section><!-- #content end -->
+
+{% endblock content %}
