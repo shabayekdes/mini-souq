@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     # My Apps
     'product',
     'store',
+    'checkout',
     # third-party-apps
     "allauth_ui",
     'allauth',

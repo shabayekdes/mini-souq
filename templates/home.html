@@ -139,13 +139,11 @@
         <div class="oc-item">
           <div class="product">
             <div class="product-image">
-              <a href="#"
+              <a href="{{ product.get_absolute_url }}"
                 ><img src="{{ product.image.url }}" alt="Round Neck T-shirts"
               /></a>
               {% if product.is_sale %}
-              <div class="sale-flash badge bg-danger p-2">
-                Sale!
-              </div>
+              <div class="sale-flash badge bg-danger p-2">Sale!</div>
               {% endif %}
               <div class="bg-overlay">
                 <div
@@ -157,9 +155,8 @@
                     ><i class="bi-bag-plus"></i
                   ></a>
                   <a
-                    href="demos/shop/ajax/shop-item.html"
+                    href="{{ product.get_absolute_url }}"
                     class="btn btn-dark"
-                    data-lightbox="ajax"
                     ><i class="bi-eye"></i
                   ></a>
                 </div>
@@ -249,8 +246,8 @@
               data-lightbox="iframe"
               class="d-block position-relative h-100"
               style="
-                background: url('static/demos/shop/images/sections/1.jpg') center
-                  center no-repeat;
+                background: url('static/demos/shop/images/sections/1.jpg')
+                  center center no-repeat;
                 background-size: cover;
               "
             >
@@ -282,9 +279,7 @@
           <div class="product">
             <div class="product-image">
               <a href="#"
-                ><img
-                  src="{{ product.image.url }}"
-                  alt="Image 1"
+                ><img src="{{ product.image.url }}" alt="Image 1"
               /></a>
               {% if product.is_sale %}
               <div class="sale-flash badge bg-danger p-2">Sale!</div>

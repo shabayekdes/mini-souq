@@ -77,8 +77,9 @@
 
 									<!-- Product Single - Quantity & Cart Button
 									============================================= -->
-									<form class="cart mb-0 d-flex justify-content-between align-items-center" method="post" enctype='multipart/form-data'>
-										<div class="quantity">
+									<form action="{% url "cart" %}" class="cart mb-0 d-flex justify-content-between align-items-center" method="post" enctype='multipart/form-data'>
+										{% csrf_token %}
+                                        <div class="quantity">
 											<input type="button" value="-" class="minus">
 											<input type="number" step="1" min="1" name="quantity" value="1" title="Qty" class="qty">
 											<input type="button" value="+" class="plus">
