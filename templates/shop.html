@@ -1,0 +1,149 @@
+{% extends "layout/base.html" %} {% block content %}
+<section class="page-title bg-transparent">
+  <div class="container">
+    <div class="page-title-row">
+      <div class="page-title-content">
+        <h1>Shop</h1>
+        <span>Products with Filter Functionality</span>
+      </div>
+
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">Templates</a></li>
+          <li class="breadcrumb-item active" aria-current="page">
+            Shop Filter
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+</section>
+<!-- .page-title end -->
+
+<!-- Content
+============================================= -->
+<section id="content">
+  <div class="content-wrap">
+    <div class="container">
+      <div class="row gx-5 col-mb-80">
+        <!-- Post Content
+                ============================================= -->
+        <main class="postcontent col-lg-9 order-lg-last">
+          <!-- Shop
+                    ============================================= -->
+          <div
+            id="shop"
+            class="shop row grid-container gutter-20"
+            data-layout="fitRows"
+          >
+            {% for product in products %}
+            <div class="product col-md-4 col-sm-6 sf-dress">
+              <div class="grid-inner">
+                <div class="product-image">
+                  <a href="#"
+                    ><img
+                      src="{{product.image.url }}"
+                      alt="Checked Short Dress"
+                  /></a>
+                  <a href="#"
+                    ><img
+                      src="images/shop/dress/1-1.jpg"
+                      alt="Checked Short Dress"
+                  /></a>
+                  <div class="sale-flash badge bg-secondary p-2">
+                    Out of Stock
+                  </div>
+                  <div class="bg-overlay">
+                    <div
+                      class="bg-overlay-content align-items-end justify-content-between"
+                      data-hover-animate="fadeIn"
+                      data-hover-speed="400"
+                    >
+                      <a href="#" class="btn btn-dark me-2" title="Add to Cart"
+                        ><i class="bi-bag-plus"></i
+                      ></a>
+                      <a
+                        href="include/ajax/shop-item.html"
+                        class="btn btn-dark"
+                        data-lightbox="ajax"
+                        title="Quick View"
+                        ><i class="bi-eye"></i
+                      ></a>
+                    </div>
+                    <div class="bg-overlay-bg bg-transparent"></div>
+                  </div>
+                </div>
+                <div class="product-desc">
+                  <div class="product-title">
+                    <h3><a href="#">{{ product.name }}</a></h3>
+                  </div>
+                  <div class="product-price">
+                    {% if product.is_sale %}
+                    <del class="me-1">${{ product.price }}</del>
+                    <ins>${{ product.sale_price }}</ins>
+                    {% else %}
+                    <ins>${{ product.price }}</ins>
+                    {% endif %}
+                  </div>
+                  <div class="product-rating">
+                    <i class="bi-star-fill"></i>
+                    <i class="bi-star-fill"></i>
+                    <i class="bi-star-fill"></i>
+                    <i class="bi-star-fill"></i>
+                    <i class="bi-star-half"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          <!-- #shop end -->
+        </main>
+        <!-- .postcontent end -->
+
+        <!-- Sidebar
+                ============================================= -->
+        <aside class="sidebar col-lg-3">
+          <div class="sidebar-widgets-wrap">
+            <div class="widget widget-filter-links">
+              <h4>Select Category</h4>
+              <ul
+                class="custom-filter ps-2"
+                data-container="#shop"
+                data-active-class="active-filter"
+              >
+                <li class="widget-filter-reset active-filter">
+                  <a href="#" data-filter="*">Clear</a>
+                </li>
+                {% for category in categories %}
+                <li><a href="#" data-filter=".sf-dress">{{ category.name }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+
+            <div class="widget widget-filter-links">
+              <h4>Sort By</h4>
+              <ul class="shop-sorting ps-2">
+                <li class="widget-filter-reset active-filter">
+                  <a href="#" data-sort-by="original-order">Clear</a>
+                </li>
+                <li><a href="#" data-sort-by="name">Name</a></li>
+                <li>
+                  <a href="#" data-sort-by="price_lh">Price: Low to High</a>
+                </li>
+                <li>
+                  <a href="#" data-sort-by="price_hl">Price: High to Low</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </aside>
+        <!-- .sidebar end -->
+      </div>
+    </div>
+  </div>
+</section>
+<!-- #content end -->
+
+{% endblock content %}

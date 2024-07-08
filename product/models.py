@@ -10,6 +10,8 @@ class Category(models.Model):
 
 	def __str__(self):
 		return self.name
+	def get_absolute_url(self):
+		return reverse("product_details", kwargs={"id" : self.pk})
 
 	class Meta:
 		verbose_name_plural = 'categories'
@@ -19,7 +21,7 @@ class Product(models.Model):
 	name = models.CharField(max_length=100)
 	slug = models.SlugField(max_length=100, unique=True)
 	price = models.DecimalField(default=0, decimal_places=2, max_digits=6)
-	category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
+	category = models.ForeignKey(Category, on_delete=models.CASCADE)
 	description = models.CharField(max_length=250, default='', blank=True, null=True)
 	image = models.ImageField(upload_to='uploads/product/')
 	# Add Sale Stuff
@@ -30,4 +32,8 @@ class Product(models.Model):
 		return self.name
 	
 	def get_absolute_url(self):
-            return reverse("product_details", kwargs={'id': self.id})
+		return reverse("product_details", kwargs={'id': self.id})
+	def get_add_to_cart_url(self):
+	    return reverse("checkout:add_to_cart", kwargs={
+            'product_id': self.pk
+        })
