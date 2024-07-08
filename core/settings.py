@@ -48,6 +48,11 @@ DEBUG = config("DJANGO_DEBUG", cast=bool)
 ALLOWED_HOSTS = [
     ".railway.app"
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://mini-souq-production.up.railway.app',
+    # Add any other trusted origins here
+]
 if DEBUG:
     ALLOWED_HOSTS += [
         "127.0.0.1",
