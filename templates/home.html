@@ -98,7 +98,7 @@
           class="{% if forloop.counter == 1 %}col-lg-7{% elif forloop.counter == 2 %}col-lg-5{% else %}col-lg-4{% endif %}"
         >
           <a
-            href="#"
+            href="{% url "shop" %}?category_id={{ category.id }}"
             style="
                         background: url('{{ category.image.url }}')
                         no-repeat right center;

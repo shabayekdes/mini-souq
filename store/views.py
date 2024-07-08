@@ -16,8 +16,8 @@ def home(request):
 
 def shop(request):
     categories = Category.objects.order_by('order')[:5]
-
     category_id = request.GET.get('category_id')
+    sort_by = request.GET.get('sort_by', 'price_asc')
 
     if category_id:
         selected_category = get_object_or_404(Category, id=category_id)
@@ -25,8 +25,14 @@ def shop(request):
     else:
         products = Product.objects.all()
 
+    if sort_by == 'price_asc':
+        products = products.order_by('price')
+    elif sort_by == 'price_desc':
+        products = products.order_by('-price')
+
     return render(request, 'shop.html', {
         'products': products,
         'categories': categories,
         'selected_category': selected_category if category_id else None,
+        'sort_by': sort_by,
     })

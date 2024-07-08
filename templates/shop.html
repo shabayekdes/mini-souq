@@ -1,18 +1,21 @@
-{% extends "layout/base.html" %} {% block content %}
+{% extends "layout/base.html" %} 
+
+{% block title %}Shop{% endblock title %}
+
+{% block content %}
 <section class="page-title bg-transparent">
   <div class="container">
     <div class="page-title-row">
       <div class="page-title-content">
         <h1>Shop</h1>
-        <span>Products with Filter Functionality</span>
+        <span></span>
       </div>
 
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item"><a href="#">Templates</a></li>
+          <li class="breadcrumb-item"><a href="{% url "home" %}">Home</a></li>
           <li class="breadcrumb-item active" aria-current="page">
-            Shop Filter
+            Shop
           </li>
         </ol>
       </nav>
@@ -38,20 +41,15 @@
             data-layout="fitRows"
           >
             {% for product in products %}
-            <div class="product col-md-4 col-sm-6 sf-dress">
+            <div class="product col-md-4 col-sm-6">
               <div class="grid-inner">
                 <div class="product-image">
-                  <a href="#"
+                  <a href="{{ product.get_absolute_url }}"
                     ><img
                       src="{{product.image.url }}"
                       alt="Checked Short Dress"
                   /></a>
-                  <a href="#"
-                    ><img
-                      src="images/shop/dress/1-1.jpg"
-                      alt="Checked Short Dress"
-                  /></a>
-                  <div class="sale-flash badge bg-secondary p-2">
+                  {% comment %} <div class="sale-flash badge bg-secondary p-2">
                     Out of Stock
                   </div>
                   <div class="bg-overlay">
@@ -72,7 +70,7 @@
                       ></a>
                     </div>
                     <div class="bg-overlay-bg bg-transparent"></div>
-                  </div>
+                  </div> {% endcomment %}
                 </div>
                 <div class="product-desc">
                   <div class="product-title">
@@ -108,16 +106,9 @@
           <div class="sidebar-widgets-wrap">
             <div class="widget widget-filter-links">
               <h4>Select Category</h4>
-              <ul
-                class="custom-filter ps-2"
-                data-container="#shop"
-                data-active-class="active-filter"
-              >
-                <li class="widget-filter-reset active-filter">
-                  <a href="#" data-filter="*">Clear</a>
-                </li>
+              <ul class="custom-filter ps-2">
                 {% for category in categories %}
-                <li><a href="#" data-filter=".sf-dress">{{ category.name }}</a></li>
+                <li><a href="{% url "shop" %}?category_id={{ category.id }}">{{ category.name }}</a></li>
                 {% endfor %}
               </ul>
             </div>
