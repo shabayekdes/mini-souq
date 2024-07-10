@@ -1,0 +1,55 @@
+{% extends "layout/base.html" %} 
+{% load static %}
+{% block title %}Thank You!!{% endblock title %}
+
+{% block content %}
+
+<!-- Page Title
+		============================================= -->
+        <section class="page-title bg-transparent">
+            <div class="container">
+              <div class="page-title-row">
+                <div class="page-title-content">
+                  <h1>Success</h1>
+                </div>
+          
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url "home" %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url "shop" %}">Shop</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Order Success</li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </section>
+          <!-- .page-title end -->
+
+<!-- Content
+		============================================= -->
+<section id="content">
+  <div class="content-wrap">
+    <div class="container">
+      <div class="row col-mb-30 gutter-50 mb-4">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body p-4 p-md-5 rounded text-center align-items-center shadow-lg border-0" style="background-color: #F1F1F1;">
+                <img src="{% static "images/order_success.svg" %}" alt="Svg" height="200" class="mb-5">
+                <h3>Order Placed Successfully</h3>
+                <p>Thank you for your purchase.</p>
+                
+                <div>
+                <a href="{% url "shop" %}" class="button button-rounded button-large bg-dark button-black ms-0">Go to Shop!!</a>
+                </div>
+                </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Content end -->
+
+{% endblock content %}

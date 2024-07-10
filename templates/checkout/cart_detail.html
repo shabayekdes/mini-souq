@@ -1,4 +1,7 @@
-{% extends "layout/base.html" %} {% load static %} {% block content %}
+{% extends "layout/base.html" %} 
+{% load static %} 
+
+{% block content %}
 <!-- Page Title
 		============================================= -->
 <section class="page-title bg-transparent">
@@ -132,6 +135,7 @@
                 </div>
               </div>
 
+              {% if cart_items %}
               <div class="col-12">
                 <a
                   href="{% url "checkout_page" %}"
@@ -139,6 +143,7 @@
                   >Proceed to Checkout</a
                 >
               </div>
+            {% endif %}
             </div>
           </div>
         </div>

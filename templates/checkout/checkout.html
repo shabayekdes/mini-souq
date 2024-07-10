@@ -1,4 +1,9 @@
-{% extends "layout/base.html" %} {% load static %} {% block content %}
+{% extends "layout/base.html" %} 
+{% load static %} 
+
+{% block title %}Checkout{% endblock title %}
+
+{% block content %}
 <!-- Page Title
 		============================================= -->
 <section class="page-title bg-transparent">
@@ -258,75 +263,31 @@
                 </tr>
               </thead>
               <tbody>
+                {% for item in cart_items %}
                 <tr class="cart_item">
                   <td class="cart-product-thumbnail">
-                    <a href="#"
+                    <a href="{{ item.product.get_absolute_url }}"
                       ><img
                         width="64"
                         height="64"
-                        src="images/shop/thumbs/small/dress-3.jpg"
+                        src="{{ item.product.image.url }}"
                         alt="Pink Printed Dress"
                     /></a>
                   </td>
 
                   <td class="cart-product-name">
-                    <a href="#">Pink Printed Dress</a>
+                    <a href="{{ item.product.get_absolute_url }}">{{ item.product.name }}</a>
                   </td>
 
                   <td class="cart-product-quantity">
-                    <div class="quantity">1x2</div>
+                    <div class="quantity">{{ item.quantity }}</div>
                   </td>
 
                   <td class="cart-product-subtotal">
-                    <span class="amount">$39.98</span>
+                    <span class="amount">${{ item.item_price}}</span>
                   </td>
                 </tr>
-                <tr class="cart_item">
-                  <td class="cart-product-thumbnail">
-                    <a href="#"
-                      ><img
-                        width="64"
-                        height="64"
-                        src="images/shop/thumbs/small/shoes-2.jpg"
-                        alt="Checked Canvas Shoes"
-                    /></a>
-                  </td>
-
-                  <td class="cart-product-name">
-                    <a href="#">Checked Canvas Shoes</a>
-                  </td>
-
-                  <td class="cart-product-quantity">
-                    <div class="quantity">1x1</div>
-                  </td>
-
-                  <td class="cart-product-subtotal">
-                    <span class="amount">$24.99</span>
-                  </td>
-                </tr>
-                <tr class="cart_item">
-                  <td class="cart-product-thumbnail">
-                    <a href="#"
-                      ><img
-                        width="64"
-                        height="64"
-                        src="images/shop/thumbs/small/tshirt-2.jpg"
-                        alt="Pink Printed Dress"
-                    /></a>
-                  </td>
-
-                  <td class="cart-product-name">
-                    <a href="#">Blue Men Tshirt</a>
-                  </td>
-
-                  <td class="cart-product-quantity">
-                    <div class="quantity">1x3</div>
-                  </td>
-
-                  <td class="cart-product-subtotal">
-                    <span class="amount">$41.97</span>
-                  </td>
-                </tr>
+                {% endfor %}
               </tbody>
             </table>
           </div>
@@ -414,7 +375,11 @@
             </div>
           </div>
           <div class="d-flex justify-content-end">
-            <a href="#" class="button button-3d">Place Order</a>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="button button-3d">Place Order</button>
+            </form>
           </div>
         </div>
       </div>

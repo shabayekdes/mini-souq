@@ -1,7 +1,6 @@
 from django.db import models
 from django.shortcuts import reverse
 
-# Create your models here.
 class Category(models.Model):
 	name = models.CharField(max_length=50)
 	# home_class = models.CharField(max_length=50)
@@ -16,12 +15,19 @@ class Category(models.Model):
 	class Meta:
 		verbose_name_plural = 'categories'
 
+class Brand(models.Model):
+    name = models.CharField(max_length=100)
+    logo = models.ImageField(upload_to='uploads/brands/')
+	
+    def __str__(self):
+        return self.name
 
 class Product(models.Model):
 	name = models.CharField(max_length=100)
 	slug = models.SlugField(max_length=100, unique=True)
 	price = models.DecimalField(default=0, decimal_places=2, max_digits=6)
 	category = models.ForeignKey(Category, on_delete=models.CASCADE)
+	brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
 	description = models.CharField(max_length=250, default='', blank=True, null=True)
 	image = models.ImageField(upload_to='uploads/product/')
 	# Add Sale Stuff

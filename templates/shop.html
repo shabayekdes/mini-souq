@@ -108,23 +108,39 @@
               <h4>Select Category</h4>
               <ul class="custom-filter ps-2">
                 {% for category in categories %}
-                <li><a href="{% url "shop" %}?category_id={{ category.id }}">{{ category.name }}</a></li>
+                <li>
+                    <a href="{% url 'shop' %}?category_id={{ category.id }}&brand_id={% if selected_brand %}{{ selected_brand.id }}{% endif %}&sort_by={{ sort_by }}">
+                        {{ category.name }}
+                    </a>
+                </li>
                 {% endfor %}
               </ul>
+            </div>
+            <div class="widget widget-filter-links">
+                <h4>Select Brand</h4>
+                <ul class="custom-filter ps-2">
+                        {% for brand in brands %}
+                        <li>
+                            <a href="{% url 'shop' %}?category_id={% if selected_category %}{{ selected_category.id }}{% endif %}&brand_id={{ brand.id }}&sort_by={{ sort_by }}">
+                                {{ brand.name }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                </ul>
             </div>
 
             <div class="widget widget-filter-links">
               <h4>Sort By</h4>
               <ul class="shop-sorting ps-2">
-                <li class="widget-filter-reset active-filter">
-                  <a href="#" data-sort-by="original-order">Clear</a>
-                </li>
-                <li><a href="#" data-sort-by="name">Name</a></li>
                 <li>
-                  <a href="#" data-sort-by="price_lh">Price: Low to High</a>
+                    <a href="{% url 'shop' %}?category_id={% if selected_category %}{{ selected_category.id }}{% endif %}&brand_id={% if selected_brand %}{{ selected_brand.id }}{% endif %}&sort_by=price_asc">
+                        Price: Low to High
+                    </a>
                 </li>
                 <li>
-                  <a href="#" data-sort-by="price_hl">Price: High to Low</a>
+                    <a href="{% url 'shop' %}?category_id={% if selected_category %}{{ selected_category.id }}{% endif %}&brand_id={% if selected_brand %}{{ selected_brand.id }}{% endif %}&sort_by=price_desc">
+                        Price: High to Low
+                    </a>
                 </li>
               </ul>
             </div>
