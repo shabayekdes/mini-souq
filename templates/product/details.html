@@ -1,6 +1,9 @@
 {% extends "layout/base.html" %}
 {% load static %}
 
+{% block title %}{{ product.slug }}{% endblock title %}
+
+
 {% block content %}
 		<!-- Page Title
 		============================================= -->
@@ -99,15 +102,15 @@
 									<!-- Product Single - Short Description
 									============================================= -->
 									{{ product.description }}
-									<ul class="iconlist">
+									{% comment %} <ul class="iconlist">
 										<li><i class="fa-solid fa-caret-right"></i> Dynamic Color Options</li>
 										<li><i class="fa-solid fa-caret-right"></i> Lots of Size Options</li>
 										<li><i class="fa-solid fa-caret-right"></i> 30-Day Return Policy</li>
-									</ul><!-- Product Single - Short Description End -->
+									</ul><!-- Product Single - Short Description End --> {% endcomment %}
 
 									<!-- Product Single - Meta
 									============================================= -->
-									<div class="card product-meta">
+									<div class="card product-meta mt-5">
 										<div class="card-body">
 											<span itemprop="productID" class="sku_wrapper">SKU: <span class="sku">8465415</span></span>
 											<span class="posted_in">Category: <a href="{{ product.category.get }}" rel="tag">{{ product.category.name }}</a>.</span>
@@ -160,7 +163,7 @@
 
 								<div class="col-md-2">
 
-									<a href="#" title="Brand Logo" class="d-none d-md-block"><img src="{% static "images/shop/brand.jpg" %}" alt="Brand Logo"></a>
+									<a href="{% url "shop" %}?brand_id={{ product.brand.id }}" title="Brand Logo" class="d-none d-md-block"><img src="{{ product.brand.logo.url }}" alt="Brand Logo"></a>
 
 									<div class="divider divider-center"><i class="bi-circle"></i></div>
 
@@ -234,10 +237,7 @@
 										<div id="canvas-tab-alt-content" class="tab-content">
 											<div class="tab-pane fade show active" id="tabs-1" role="tabpanel" aria-labelledby="canvas-tabs-1-tab"
 												tabindex="0">
-												<p>Pink printed dress, woven, round neck with a keyhole and buttoned closure at the back, sleeveless,
-													concealed zip up at left side seam, belt loops along waist with slight gathers beneath, brand appliqu??
-													above left front hem, has an attached lining.</p>
-												Comes with a white, slim synthetic belt that has a tang clasp.
+												{{ product.description }}
 											</div>
 											<div class="tab-pane fade" id="tabs-2" role="tabpanel" aria-labelledby="canvas-tabs-2-tab" tabindex="0">
 
@@ -451,143 +451,60 @@
 
 						<div class="owl-carousel product-carousel carousel-widget" data-margin="30" data-pagi="false" data-autoplay="5000" data-items-xs="1" data-items-md="2" data-items-lg="3" data-items-xl="4">
 
-							<div class="oc-item">
-								<div class="product">
-									<div class="product-image">
-										<a href="#"><img src="{% static "images/shop/dress/1.jpg" %}" alt="Checked Short Dress"></a>
-										<a href="#"><img src="{% static "images/shop/dress/1-1.jpg" %}" alt="Checked Short Dress"></a>
-										<div class="badge bg-success p-2">50% Off*</div>
-										<div class="bg-overlay">
-											<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
-												<a href="#" class="btn btn-dark me-2" title="Add to Cart"><i class="bi-bag-plus"></i></a>
-												<a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax" title="Quick View"><i class="bi-eye"></i></a>
-											</div>
-											<div class="bg-overlay-bg bg-transparent"></div>
-										</div>
-									</div>
-									<div class="product-desc text-center">
-										<div class="product-title"><h3><a href="#">Checked Short Dress</a></h3></div>
-										<div class="product-price"><del>$24.99</del> <ins>$12.49</ins></div>
-										<div class="product-rating">
-											<i class="bi-star-fill"></i>
-											<i class="bi-star-fill"></i>
-											<i class="bi-star-fill"></i>
-											<i class="bi-star-fill"></i>
-											<i class="bi-star-half"></i>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="oc-item">
-								<div class="product">
-									<div class="product-image">
-										<a href="#"><img src="{% static "images/shop/pants/1-1.jpg" %}" alt="Slim Fit Chinos"></a>
-										<a href="#"><img src="{% static "images/shop/pants/1.jpg" %}" alt="Slim Fit Chinos"></a>
-										<div class="bg-overlay">
-											<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
-												<a href="#" class="btn btn-dark me-2" title="Add to Cart"><i class="bi-bag-plus"></i></a>
-												<a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax" title="Quick View"><i class="bi-eye"></i></a>
-											</div>
-											<div class="bg-overlay-bg bg-transparent"></div>
-										</div>
-									</div>
-									<div class="product-desc text-center">
-										<div class="product-title"><h3><a href="#">Slim Fit Chinos</a></h3></div>
-										<div class="product-price">$39.99</div>
-										<div class="product-rating">
-											<i class="bi-star-fill"></i>
-											<i class="bi-star-fill"></i>
-											<i class="bi-star-fill"></i>
-											<i class="bi-star-half"></i>
-											<i class="bi-star"></i>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="oc-item">
-								<div class="product">
-									<div class="product-image">
-										<a href="#"><img src="{% static "images/shop/shoes/1-1.jpg" %}" alt="Dark Brown Boots"></a>
-										<a href="#"><img src="{% static "images/shop/shoes/1.jpg" %}" alt="Dark Brown Boots"></a>
-										<div class="bg-overlay">
-											<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
-												<a href="#" class="btn btn-dark me-2" title="Add to Cart"><i class="bi-bag-plus"></i></a>
-												<a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax" title="Quick View"><i class="bi-eye"></i></a>
-											</div>
-											<div class="bg-overlay-bg bg-transparent"></div>
-										</div>
-									</div>
-									<div class="product-desc text-center">
-										<div class="product-title"><h3><a href="#">Dark Brown Boots</a></h3></div>
-										<div class="product-price">$49</div>
-										<div class="product-rating">
-											<i class="bi-star-fill"></i>
-											<i class="bi-star-fill"></i>
-											<i class="bi-star-fill"></i>
-											<i class="bi-star"></i>
-											<i class="bi-star"></i>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="oc-item">
-								<div class="product">
-									<div class="product-image">
-										<a href="#"><img src="{% static "images/shop/dress/2.jpg" %}" alt="Light Blue Denim Dress"></a>
-										<a href="#"><img src="{% static "images/shop/dress/2-2.jpg" %}" alt="Light Blue Denim Dress"></a>
-										<div class="bg-overlay">
-											<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
-												<a href="#" class="btn btn-dark me-2" title="Add to Cart"><i class="bi-bag-plus"></i></a>
-												<a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax" title="Quick View"><i class="bi-eye"></i></a>
-											</div>
-											<div class="bg-overlay-bg bg-transparent"></div>
-										</div>
-									</div>
-									<div class="product-desc text-center">
-										<div class="product-title"><h3><a href="#">Light Blue Denim Dress</a></h3></div>
-										<div class="product-price">$19.95</div>
-										<div class="product-rating">
-											<i class="bi-star-fill"></i>
-											<i class="bi-star-fill"></i>
-											<i class="bi-star-fill"></i>
-											<i class="bi-star-fill"></i>
-											<i class="bi-star"></i>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="oc-item">
-								<div class="product">
-									<div class="product-image">
-										<a href="#"><img src="{% static "images/shop/sunglasses/1.jpg" %}" alt="Unisex Sunglasses"></a>
-										<a href="#"><img src="{% static "images/shop/sunglasses/1-1.jpg" %}" alt="Unisex Sunglasses"></a>
-										<div class="badge bg-success p-2">Sale!</div>
-										<div class="bg-overlay">
-											<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
-												<a href="#" class="btn btn-dark me-2" title="Add to Cart"><i class="bi-bag-plus"></i></a>
-												<a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax" title="Quick View"><i class="bi-eye"></i></a>
-											</div>
-											<div class="bg-overlay-bg bg-transparent"></div>
-										</div>
-									</div>
-									<div class="product-desc text-center">
-										<div class="product-title"><h3><a href="#">Unisex Sunglasses</a></h3></div>
-										<div class="product-price"><del>$19.99</del> <ins>$11.99</ins></div>
-										<div class="product-rating">
-											<i class="bi-star-fill"></i>
-											<i class="bi-star-fill"></i>
-											<i class="bi-star-fill"></i>
-											<i class="bi-star"></i>
-											<i class="bi-star"></i>
-										</div>
-									</div>
-								</div>
-							</div>
-
+                            {% for product in related_products  %}
+                            <div class="oc-item">
+                                <div class="product">
+                                  <div class="product-image">
+                                    <a href="{{ product.get_absolute_url }}"
+                                      ><img src="{{ product.image.url }}" alt="Round Neck T-shirts"
+                                    /></a>
+                                    {% if product.is_sale %}
+                                    <div class="sale-flash badge bg-danger p-2">Sale!</div>
+                                    {% endif %}
+                                    <div class="bg-overlay">
+                                      <div
+                                        class="bg-overlay-content align-items-end justify-content-between"
+                                        data-hover-animate="fadeIn"
+                                        data-hover-speed="400"
+                                      >
+                                        <a href="#" class="btn btn-dark me-2" title="Add to Cart"
+                                          ><i class="bi-bag-plus"></i
+                                        ></a>
+                                        <a
+                                          href="{{ product.get_absolute_url }}"
+                                          class="btn btn-dark"
+                                          ><i class="bi-eye"></i
+                                        ></a>
+                                      </div>
+                                      <div class="bg-overlay-bg bg-transparent"></div>
+                                    </div>
+                                  </div>
+                                  <div class="product-desc">
+                                    <div class="product-title mb-1">
+                                      <h3>
+                                        <a href="#">{{ product.name }}</a>
+                                      </h3>
+                                    </div>
+                                    <div class="product-price font-primary">
+                                      {% if product.is_sale %}
+                                      <del class="me-1">${{ product.price }}</del>
+                                      <ins>${{ product.sale_price }}</ins>
+                                      {% else %}
+                                      <ins>${{ product.price }}</ins>
+                                      {% endif %}
+                                    </div>
+                                    <!-- <div class="product-rating">
+                                                  <i class="bi-star-fill"></i>
+                                                  <i class="bi-star-fill"></i>
+                                                  <i class="bi-star-fill"></i>
+                                                  <i class="bi-star-half"></i>
+                                                  <i class="bi-star"></i>
+                                              </div> -->
+                                  </div>
+                                </div>
+                              </div>
+                            {% endfor %}
+							
 						</div>
 
 					</div>

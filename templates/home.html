@@ -280,55 +280,55 @@
         <!-- Shop Item 1
 						============================================= -->
         <div class="col-lg-2 col-md-3 col-6 px-2">
-          <div class="product">
-            <div class="product-image">
-              <a href="#"
-                ><img src="{{ product.image.url }}" alt="Image 1"
-              /></a>
-              {% if product.is_sale %}
-              <div class="sale-flash badge bg-danger p-2">Sale!</div>
-              {% endif %}
-              <div class="bg-overlay">
-                <div
-                  class="bg-overlay-content align-items-end justify-content-between"
-                  data-hover-animate="fadeIn"
-                  data-hover-speed="400"
-                >
-                  <a href="#" class="btn btn-dark me-2" title="Add to Cart"
-                    ><i class="bi-bag-plus"></i
-                  ></a>
-                  <a
-                    href="demos/shop/ajax/shop-item.html"
-                    class="btn btn-dark"
-                    data-lightbox="ajax"
-                    ><i class="bi-eye"></i
-                  ></a>
+            <div class="product">
+                <div class="product-image">
+                  <a href="{{ product.get_absolute_url }}"
+                    ><img src="{{ product.image.url }}" alt="Round Neck T-shirts"
+                  /></a>
+                  {% if product.is_sale %}
+                  <div class="sale-flash badge bg-danger p-2">Sale!</div>
+                  {% endif %}
+                  <div class="bg-overlay">
+                    <div
+                      class="bg-overlay-content align-items-end justify-content-between"
+                      data-hover-animate="fadeIn"
+                      data-hover-speed="400"
+                    >
+                      <a href="#" class="btn btn-dark me-2" title="Add to Cart"
+                        ><i class="bi-bag-plus"></i
+                      ></a>
+                      <a
+                        href="{{ product.get_absolute_url }}"
+                        class="btn btn-dark"
+                        ><i class="bi-eye"></i
+                      ></a>
+                    </div>
+                    <div class="bg-overlay-bg bg-transparent"></div>
+                  </div>
                 </div>
-                <div class="bg-overlay-bg bg-transparent"></div>
+                <div class="product-desc">
+                  <div class="product-title mb-1">
+                    <h3>
+                      <a href="#">{{ product.name }}</a>
+                    </h3>
+                  </div>
+                  <div class="product-price font-primary">
+                    {% if product.is_sale %}
+                    <del class="me-1">${{ product.price }}</del>
+                    <ins>${{ product.sale_price }}</ins>
+                    {% else %}
+                    <ins>${{ product.price }}</ins>
+                    {% endif %}
+                  </div>
+                  <!-- <div class="product-rating">
+                                <i class="bi-star-fill"></i>
+                                <i class="bi-star-fill"></i>
+                                <i class="bi-star-fill"></i>
+                                <i class="bi-star-half"></i>
+                                <i class="bi-star"></i>
+                            </div> -->
+                </div>
               </div>
-            </div>
-            <div class="product-desc">
-              <div class="product-title mb-1">
-                <h3><a href="#">{{ product.name }}</a></h3>
-              </div>
-              <div class="product-price font-primary">
-                {% if product.is_sale %}
-                <del class="me-1">${{ product.price }}</del>
-                <ins>${{ product.sale_price }}</ins>
-                {% else %}
-                <ins>${{ product.price }}</ins>
-                {% endif %}
-              </div>
-
-              <!-- <div class="product-rating">
-                <i class="bi-star-fill"></i>
-                <i class="bi-star-fill"></i>
-                <i class="bi-star-fill"></i>
-                <i class="bi-star-half"></i>
-                <i class="bi-star"></i>
-              </div> -->
-            </div>
-          </div>
         </div>
         {% endfor %}
       </div>
@@ -375,7 +375,7 @@
                       </li>
                     </ul>
                     <a
-                      href="#"
+                      href="{{ signup_url }}"
                       class="button button-rounded ls-0 fw-semibold ms-0 mb-2 text-transform-none px-4"
                       >Sign Up</a
                     ><br />

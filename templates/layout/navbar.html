@@ -18,18 +18,47 @@
         <!-- #logo end -->
 
         <div class="header-misc">
+
+          <!-- Top Search
+                              ============================================= -->
+          <div id="top-search" class="header-misc-icon">
+            <a href="#" id="top-search-trigger"
+              ><i class="uil uil-search"></i><i class="bi-x-lg"></i
+            ></a>
+          </div>
+          <!-- #top-search end -->
           <!-- Top Search
                               ============================================= -->
           {% if request.user.is_authenticated %} 
           <!-- Top Cart
                               ============================================= -->
-        <div id="top-cart" class="header-misc-icon d-none d-sm-block">
+        <div id="top-carts" class="header-misc-icon d-none d-sm-block">
             <a href="{% url "cart_detail" %}">
                 <i class="uil uil-shopping-bag"></i>
                 <span class="top-cart-number">{{ cart_count }}</span>
             </a>
         </div>
         <!-- #top-cart end -->
+                   <!-- Top Cart
+                              ============================================= -->
+        <div id="top-cart" class="d-none d-sm-block">
+            <a href="#" id="top-cart-trigger">
+                <i class="bi-person me-1 position-relative" style="top: 1px"></i>
+                <span class="d-none d-sm-inline-block font-primary fw-medium">{{ request.user.username }}</span>
+            </a>
+            <div class="top-cart-content">
+                <div class="top-cart-items">
+                    <div class="top-cart-item">
+                        <a href="{% url "account_logout" %}">
+                            <i class="i-style rounded-circle i-light bi-lightning-fill"></i>
+                            <span class="d-none d-sm-inline-block font-primary fw-medium">Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+          </div>
+        <!-- #top-cart end -->
+
           {% else %}
           <div id="top-accounts">
             <a href="{% url "account_login" %}"
@@ -43,14 +72,6 @@
 
           <!-- #top-search end -->
 
-          <!-- Top Search
-                              ============================================= -->
-          <div id="top-search" class="header-misc-icon">
-            <a href="#" id="top-search-trigger"
-              ><i class="uil uil-search"></i><i class="bi-x-lg"></i
-            ></a>
-          </div>
-          <!-- #top-search end -->
         </div>
 
         <div class="primary-menu-trigger">
