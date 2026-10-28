@@ -48,15 +48,17 @@
               {% for item in cart_items %}
               <tr class="cart_item">
                 <td class="cart-product-remove">
-                  <a href="{% url "remove_from_cart" item.id %}" class="remove" title="Remove this item"
-                    ><i class="fa-solid fa-trash"></i
-                  ></a>
+                  <form action="{% url "remove_from_cart" item.id %}" method="post" class="m-0">
+                    {% csrf_token %}
+                    <button type="submit" class="remove border-0 bg-transparent p-0" title="Remove this item"
+                      ><i class="fa-solid fa-trash"></i
+                    ></button>
+                  </form>
                 </td>
 
                 <td class="cart-product-thumbnail">
                   <a href="#"
-                    ><img width="64" height="64" src="{{ item.product.image.url }}" alt="Pink Printed
-                    Dress"></a
+                    ><img width="64" height="64" src="{{ item.product.image.url }}" alt="{{ item.product.name }}"></a
                   >
                 </td>
 
@@ -65,7 +67,7 @@
                 </td>
 
                 <td class="cart-product-price">
-                  <span class="amount">${{ item.product.price }}</span>
+                  <span class="amount">${{ item.product.current_price }}</span>
                 </td>
 
                 <td class="cart-product-quantity">
@@ -107,7 +109,7 @@
                         </td>
 
                         <td class="cart-product-name text-end">
-                          <span class="amount">$106.94</span>
+                          <span class="amount">${{ total_price }}</span>
                         </td>
                       </tr>
                       <tr class="cart_item">
@@ -126,7 +128,7 @@
 
                         <td class="cart-product-name text-end">
                           <span class="amount color lead fw-medium"
-                            >$106.94</span
+                            >${{ total_price }}</span
                           >
                         </td>
                       </tr>

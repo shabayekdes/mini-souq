@@ -91,7 +91,7 @@
 										{% csrf_token %}
                                         <div class="quantity">
 											<input type="button" value="-" class="minus">
-											<input type="number" step="1" min="1" name="quantity" value="1" title="Qty" class="qty">
+											<input type="number" step="1" min="1" max="99" name="quantity" value="1" title="Qty" class="qty">
 											<input type="button" value="+" class="plus">
 										</div>
 										<button type="submit" class="add-to-cart button m-0">Add to cart</button>
@@ -113,7 +113,7 @@
 									<div class="card product-meta mt-5">
 										<div class="card-body">
 											<span itemprop="productID" class="sku_wrapper">SKU: <span class="sku">8465415</span></span>
-											<span class="posted_in">Category: <a href="{{ product.category.get }}" rel="tag">{{ product.category.name }}</a>.</span>
+											<span class="posted_in">Category: <a href="{{ product.category.get_absolute_url }}" rel="tag">{{ product.category.name }}</a>.</span>
 											<span class="tagged_as">Tags: <a href="#" rel="tag">Pink</a>, <a href="#" rel="tag">Short</a>, <a href="#" rel="tag">Dress</a>, <a href="#" rel="tag">Printed</a>.</span>
 										</div>
 									</div><!-- Product Single - Meta End -->

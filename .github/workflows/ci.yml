@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      # Throwaway database for this job only; production uses PostgreSQL too.
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: minisouq
+          POSTGRES_PASSWORD: minisouq
+          POSTGRES_DB: minisouq
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U minisouq"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      # Test-only values; no production secrets are used in CI.
+      DJANGO_SECRET_KEY: ci-only-insecure-secret-key-${{ github.run_id }}
+      DATABASE_URL: postgres://minisouq:minisouq@localhost:5432/minisouq
+      DJANGO_ALLOWED_HOSTS: localhost
+      # Production mode otherwise; the test client speaks plain HTTP.
+      # (Production security defaults are covered by core/tests.py.)
+      DJANGO_SECURE_SSL_REDIRECT: "0"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Django system checks
+        run: |
+          python manage.py check --fail-level WARNING
+          python manage.py check --deploy
+
+      - name: Check for missing migrations
+        run: python manage.py makemigrations --check --dry-run
+
+      - name: Run tests
+        run: python manage.py test
+
+      - name: collectstatic (as in the Docker build)
+        run: python manage.py collectstatic --noinput
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build -t minisouq:ci .

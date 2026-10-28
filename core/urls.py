@@ -1,8 +1,7 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from . import settings
-from django.conf.urls.static import static
-from auth import views as auth_views
 
 urlpatterns = [
     path('accounts/', include('allauth.urls')),
@@ -10,5 +9,8 @@ urlpatterns = [
     path('', include('store.urls')),
     path('products/', include('product.urls')),
     path('checkout/', include('checkout.urls')),
-    
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+# Serves uploaded media in development only; static() is a no-op when DEBUG is
+# off, so production needs external media storage (see README).
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

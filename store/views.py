@@ -1,7 +1,26 @@
+from django.core.paginator import Paginator
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from product.models import Brand, Category, Product
 
-# Create your views here.
+PRODUCTS_PER_PAGE = 24
+SORT_OPTIONS = {
+    'price_asc': 'price',
+    'price_desc': '-price',
+}
+
+
+def _get_filter_object(model, raw_id):
+    """Resolve an optional ?<model>_id= query parameter, 404 on bad input."""
+    if not raw_id:
+        return None
+    try:
+        pk = int(raw_id)
+    except ValueError:
+        raise Http404(f'Invalid {model._meta.verbose_name} id')
+    return get_object_or_404(model, pk=pk)
+
+
 def home(request):
     products = Product.objects.all()
     categories = Category.objects.order_by('order')[:5]
@@ -14,42 +33,36 @@ def home(request):
         category_products = []
 
     return render(request, 'home.html', {
-        'products': products, 
+        'products': products,
         'brands': brands,
-        'categories': categories, 
-        'first_category': first_category, 
+        'categories': categories,
+        'first_category': first_category,
         'category_products': category_products
         })
 
 def shop(request):
     categories = Category.objects.order_by('order')[:5]
     brands = Brand.objects.all()
-    
-    category_id = request.GET.get('category_id')
-    brand_id = request.GET.get('brand_id')
-    sort_by = request.GET.get('sort_by', 'price_asc')
+
+    selected_category = _get_filter_object(Category, request.GET.get('category_id'))
+    selected_brand = _get_filter_object(Brand, request.GET.get('brand_id'))
+    sort_by = request.GET.get('sort_by')
+    if sort_by not in SORT_OPTIONS:
+        sort_by = 'price_asc'
 
     products = Product.objects.all()
-
-    if category_id:
-        selected_category = get_object_or_404(Category, id=category_id)
+    if selected_category:
         products = products.filter(category=selected_category)
-    else:
-        selected_category = None
-
-    if brand_id:
-        selected_brand = get_object_or_404(Brand, id=brand_id)
+    if selected_brand:
         products = products.filter(brand=selected_brand)
-    else:
-        selected_brand = None
+    # Secondary ordering by id keeps pagination stable for equal prices.
+    products = products.order_by(SORT_OPTIONS[sort_by], 'id')
 
-    if sort_by == 'price_asc':
-        products = products.order_by('price')
-    elif sort_by == 'price_desc':
-        products = products.order_by('-price')
+    page_obj = Paginator(products, PRODUCTS_PER_PAGE).get_page(request.GET.get('page'))
 
     return render(request, 'shop.html', {
-        'products': products,
+        'products': page_obj,
+        'page_obj': page_obj,
         'brands': brands,
         'categories': categories,
         'selected_category': selected_category,

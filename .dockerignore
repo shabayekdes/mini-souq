@@ -1,0 +1,22 @@
+# Keep secrets, local state and VCS metadata out of the build context/image.
+.git
+.github
+.env
+.env.*
+!.env.example
+*.sqlite3
+*.sqlite3-journal
+media/
+local-cdn/
+staticfiles-cdn/
+__pycache__/
+*.py[cod]
+.venv
+venv/
+env/
+.pytest_cache/
+.coverage
+htmlcov/
+.DS_Store
+.vscode/
+.idea/

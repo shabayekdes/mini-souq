@@ -283,6 +283,14 @@
       {% include "layout/navbar.html" %}
       <!-- #header end -->
 
+      {% if messages %}
+      <div class="container mt-4">
+        {% for message in messages %}
+        <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-{{ message.tags }}{% endif %} mb-2" role="alert">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
       {% block content %} {% endblock %}
 
       <!-- Footer
