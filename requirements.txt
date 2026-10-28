@@ -10,4 +10,4 @@ whitenoise==6.12.0
 django-allauth[socialaccount]==65.21.0
 django-allauth-ui==1.8.1
 django-widget-tweaks==1.5.1
-slippers==0.6.3
+slippers==0.7.1
