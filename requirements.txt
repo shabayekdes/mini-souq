@@ -1,7 +1,7 @@
 # Direct dependencies, pinned to the versions the test suite runs against.
 # Bump deliberately (e.g. via Dependabot PRs) and re-run the tests.
 Django>=5.2.18,<5.3  # 5.2 is the current LTS release
-gunicorn==26.2.0
+gunicorn==27.0.1
 python-decouple==3.8
 pillow==13.0.0
 psycopg[binary]==3.3.6
